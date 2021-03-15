@@ -7,6 +7,8 @@ namespace CSharpDemo
         static void Main(string[] args)
         {
             // Ctrl + F5
+            
+
             Console.WriteLine("Hello .Net Core World!");
         }
     }
