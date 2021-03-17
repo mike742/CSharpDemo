@@ -7,81 +7,108 @@ namespace CSharpDemo
         static void Main(string[] args)
         {
             /*
-            Console.WriteLine("Enter your name: ");
-            string userName = Console.ReadLine();
-            string userPos = "developer";
+            int[] arr = { 1, 2, 3, 4, 5 };
 
-            Console.WriteLine("Hello " + userName); // concatination
-            Console.WriteLine("Hello {0} {1} {0}", userName, userPos);
-            Console.WriteLine($"Hello {userName} {userPos}");
+            for (int i = 0; i < arr.Length; i++)
+            {
+                Console.Write(arr[i] + " ");
+            }
+
+            try
+            {
+                Console.WriteLine(arr[7]);
+            }
+            catch (IndexOutOfRangeException e)
+            {
+                Console.WriteLine("An IndexOutOfRangeException has occured: {0} {1} {2} {1}", 
+                        e.Message, 77, 123);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("An Exception has occured: {0}", e.Message);
+            }
             */
-
-            int i = 77;
-            long l = i;
-            float f = l;
-            double d = 3.14;
-
-            // c++ -> c++++ #
-            // c -> c++ -> c++++ #
-            // i = (int)d;
-            string str = "314";
-            // i = Int32.Parse(str);
-            i = Convert.ToInt32(d);
-
-
-            Console.WriteLine($"i = {i}");
-            Console.WriteLine($"l = {l}");
-            Console.WriteLine($"f = {f}");
-            Console.WriteLine($"d = {d}");
-
 
             /*
-                sbyte, byte, short, ushort, int, uint, long, ulong, float, double, 
-                and decimal.
-            */
-            Console.WriteLine("\n\n");
-            Console.WriteLine("|  Type  | Bytes of Memory |   Min   |   Max   |");
-            Console.WriteLine("================================================");
-            Console.WriteLine("| sbyte  | " + sizeof(sbyte) + " | " +
-                        sbyte.MinValue + " | " + sbyte.MaxValue + " |"            
-                    );
-            Console.WriteLine("| byte  | " + sizeof(byte) + " | " +
-                        byte.MinValue + " | " + byte.MaxValue + " |"
-                     );
-            Console.WriteLine("| float  | " + sizeof(float) + " | " +
-                        float.MinValue + " | " + float.MaxValue + " |"
-                     );
-            Console.WriteLine("| double  | " + sizeof(double) + " | " +
-                        double.MinValue + " | " + double.MaxValue + " |"
-                     );
-            Console.WriteLine("| long  | " + sizeof(long) + " | " +
-                      long.MinValue + " | " + long.MaxValue + " |"
-                   );
-            Console.WriteLine("| decimal  | " + sizeof(decimal) + " | " +
-                        decimal.MinValue + " | " + decimal.MaxValue + " |"
-                     );
+            int[] arr2 = { 19, 3, 75, 52 };
 
-            Console.WriteLine("\n\n");
-            int length = 100;
-
-            for (int j = 1; j <= length; j++)
+            try
             {
-                Console.Write(j);
-
-                if (j == 100)
+                for (int i = 0; i < arr2.Length - 1; i++)
                 {
-                    Console.WriteLine(".");
+                    Console.WriteLine(arr2[i] / arr2[i + 1]);
                 }
+
+                // throw new ArgumentOutOfRangeException;
+            }
+            catch (DivideByZeroException e)
+            {
+                Console.WriteLine(e.Message);
+            }
+            catch (IndexOutOfRangeException e)
+            {
+                Console.WriteLine(e.Message);
+            }
+            catch (ArgumentOutOfRangeException e)
+            {
+                Console.WriteLine(e.Message);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+            }
+
+
+            Console.WriteLine("not-finally block");
+            for (int i = 0; i < arr2.Length; i++)
+            {
+                Console.Write(arr2[i] + " ");
+            }
+            */
+
+            Console.WriteLine("Enter a number between 0 and 255: ");
+            string n1 = Console.ReadLine();
+
+            Console.WriteLine("Enter another number between 0 and 255: ");
+            string n2 = Console.ReadLine();
+
+            try
+            {
+                int num1 = Int32.Parse(n1);
+                int num2 = Int32.Parse(n2);
+
+                if (!(num1 >= 0 && num1 <= 255) || !(num2 >= 0 && num2 <= 255))
+                {
+                    throw new ArgumentOutOfRangeException();
+                }
+                /*
+                else if (num2 == 0)
+                {
+                    throw new DivideByZeroException();
+                }
+                */
                 else
                 {
-                    Console.Write(", ");
-                }
-
-                if (j % 15 == 0) // 15 30 45 60 75 90
-                {
-                    Console.Write("\n");
+                    Console.WriteLine("\n" + num1 + " divided by " + num2
+                        + " is " + (num1 / num2));
                 }
             }
+            catch (FormatException)
+            {
+                Console.WriteLine("\nFormatException: Input string ....");
+            }
+
+            catch (DivideByZeroException e)
+            {
+                Console.WriteLine("\nDivideByZeroException: " + e.Message);
+            }
+
+            catch (ArgumentOutOfRangeException)
+            {
+                Console.WriteLine("\nArgumentOutOfRangeException: Number(s) is out of range");
+            }
+
+            Console.WriteLine("\n\nHave a nice day!");
         }
     }
 }
