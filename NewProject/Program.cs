@@ -26,6 +26,8 @@ namespace NewProject
 
         static void Main(string[] args)
         {
+            _logger.Info("main method has been executed");
+
             // bool b = null; // true / false / null
             // int a = null; 
 
