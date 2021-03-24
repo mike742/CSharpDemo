@@ -13,7 +13,7 @@ namespace PrimeFactorsTest2
             int number = 4;
 
             // Act
-            string expected = "2 2 ";
+            string expected = "2 x 2";
             string res = Program.PrimeFactors(number);
 
             // Assert

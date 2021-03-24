@@ -2,45 +2,63 @@
 
 namespace CSharpDemo
 {
-    public class Program
+    public class Customer
     {
-        public static string PrimeFactors(int number)
-        {
-            // F10
-            string res = string.Empty; 
-            
-            for (int i = 2; i <= number; ++i)
-            {
-                while (number % i == 0) 
-                {
-                    res = res + i + " "; 
-                    number = number / i; 
-                }
-            }
+        private string _firstName;
+        private string _lastName;
+        private static string ClassInfo;
 
-            return res;
+        static Customer()
+        {
+            ClassInfo = "Our class has name Customer";
         }
 
+        public static string GetClassInfo() => ClassInfo; 
+
+        public Customer(string firstName, string lastName)
+        {
+            Console.WriteLine("ctor with params has been called");
+
+            _firstName = firstName;
+            _lastName = lastName;
+        }
+        /*
+        public Customer()
+        {
+            _firstName = "n/a";
+            _lastName = "n/a";
+        }
+        */
+        public Customer() : this("n/a", "n/a") { }
+
+        /*
+        public void PrintFullName()
+        {
+            Console.WriteLine($"{_firstName} {_lastName}");
+        }
+        */
+
+        public void PrintFullName() => Console.WriteLine(_lastName + " " + _firstName);
+
+        /*
+        public string GetFullName()
+        {
+            return _firstName + " " + _lastName;
+        }
+        */
+        public string GetFullName() => _firstName + " " + _lastName;
+    }
+
+    public class Program
+    {
         static void Main(string[] args)
         {
-            // F5
-            Console.WriteLine(PrimeFactors(6));
+            Customer c1 = new Customer();
+            c1.PrintFullName();
 
-            /*
-                6  / 2
-                3  / 2! /3
-                1
-                -----------
-                "2 x 3"
+            Console.WriteLine(c1.GetFullName() + " " + Customer.GetClassInfo());
 
-                50 / 2
-                25 /2! /3! /4! /5
-                5  /2! /3! /4! /5
-                ---------------
-                "2 x 5 x 5"
-             */
 
-            
             Console.WriteLine("\n\nHave a nice day!");
         }
     }
