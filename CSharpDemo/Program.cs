@@ -68,6 +68,11 @@ namespace CSharpDemo
         public int Height { get; set; }
         public int Width { get; set; }
         public int Area { get; set; }
+
+        public void Info()
+        {
+            Console.WriteLine("base: This is a shape");
+        }
     }
 
     class Rectangle : Shape
@@ -78,7 +83,14 @@ namespace CSharpDemo
             Width = w;
             Area = h * w;
         }
+
+        public new void Info()
+        {
+            base.Info();
+            Console.WriteLine("This is a Rectangle");
+        }
     }
+
 
     class Square : Shape
     {
@@ -90,14 +102,73 @@ namespace CSharpDemo
         }
     }
 
+    class ShapeVirtual
+    {
+        public int Height { get; set; }
+        public int Width { get; set; }
+        public int Area { get; set; }
+
+        public virtual void Info()
+        {
+            Console.WriteLine("base: This is a shapeVirtual");
+        }
+    }
+
+    class RectangleVirtual : ShapeVirtual
+    {
+        public RectangleVirtual(int w, int h)
+        {
+            Height = h;
+            Width = w;
+            Area = h * w;
+        }
+
+        public override void Info()
+        {
+            // base.Info();
+            Console.WriteLine("This is a RectangleVirtual");
+        }
+    }
+
+
+    public abstract class ShapeAbstract
+    {
+        public int Height { get; set; }
+        public int Width { get; set; }
+        public int Area { get; set; }
+
+        public abstract void Info();
+    }
+
+    class RectangleAbstract : ShapeAbstract
+    {
+        public RectangleAbstract(int w, int h)
+        {
+            Height = h;
+            Width = w;
+            Area = h * w;
+        }
+
+        public override void Info()
+        {
+            throw new NotImplementedException();
+        }
+    }
+
     class Program
     {
         static void Main(string[] args)
         {
-            /*
+
+            ShapeVirtual shv = new RectangleVirtual(77, 88);
+            shv.Info();
+
             Shape r = new Rectangle(40, 30);
             Console.WriteLine("area = " + r.Area);
+            r.Info();
 
+
+            /*
             Shape s = new Square(30);
             Console.WriteLine("area square = " + s.Area);
             */
