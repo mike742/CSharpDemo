@@ -155,10 +155,152 @@ namespace CSharpDemo
         }
     }
 
+    interface IPrintScanContent
+    {
+        bool PrintContent(string content);
+        bool ScanContent(string content);
+        bool PhotoCopyContent(string content);
+    }
+
+    interface IFaxContent
+    {
+        bool FaxContent(string content);
+    }
+
+    interface IPrintDuplex
+    {
+        bool PrintDuplexContent(string content);
+    }
+
+    class HPLaserJet : IPrintScanContent, IFaxContent, IPrintDuplex
+    {
+        public bool FaxContent(string content)
+        {
+            Console.WriteLine("Fax done");
+            return true;
+        }
+
+        public bool PhotoCopyContent(string content)
+        {
+            Console.WriteLine("PhotoCopy done");
+            return true;
+        }
+
+        public bool PrintContent(string content)
+        {
+            Console.WriteLine("Print done");
+            return true;
+        }
+
+        public bool PrintDuplexContent(string content)
+        {
+            Console.WriteLine("PrintDuplex done");
+            return true;
+        }
+
+        public bool ScanContent(string content)
+        {
+            Console.WriteLine("Scan done");
+            return true;
+        }
+    }
+
+    class CannonMG2470 : IPrintScanContent
+    {
+        public bool PhotoCopyContent(string content)
+        {
+            Console.WriteLine("PhotoCopy done");
+            return true;
+        }
+
+        public bool PrintContent(string content)
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool ScanContent(string content)
+        {
+            throw new NotImplementedException();
+        }
+    }
+
+
+    interface IHumanCashier
+    {
+        void StartShift();
+        void TakeBreak();
+        void CompleteShift();
+        void DispaseChange();
+    }
+
+
+    interface ICashier
+    {
+        void ScanItem();
+        void TakePayment();
+    }
+    class SeflServeMachine : ICashier
+    {
+        public void ScanItem()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void TakePayment()
+        {
+            throw new NotImplementedException();
+        }
+    }
+
+    class HumanCachier : ICashier, IHumanCashier
+    {
+        public void CompleteShift()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void DispaseChange()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void ScanItem()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void StartShift()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void TakeBreak()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void TakePayment()
+        {
+            throw new NotImplementedException();
+        }
+    }
+
+    interface IAnimal
+    {
+        // private int _age;
+        public int Age { set; get; }
+        public string Species { set; get; }
+        string GetDescription();
+        void RequestUniqueCharacteristic();
+    }
+
     class Program
     {
         static void Main(string[] args)
         {
+
+
+            ShapeAbstract sha = new RectangleAbstract(77, 99);
 
             ShapeVirtual shv = new RectangleVirtual(77, 88);
             shv.Info();
