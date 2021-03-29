@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace CSharpDemo
+namespace CustomerClassLibrary
 {
-    class Location
+    public class Location
     {
         private string _locationName;
 
