@@ -1,80 +1,57 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Text.RegularExpressions;
 using CustomerClassLibrary;
 
 namespace DotNetCore
 {
-    interface IAnimal
-    {
-        int Age { set; get; }
-        string Species { get; }
-
-        /*
-        public void SetAge()
-        {
-            Console.Write("How old is it? ");
-            Age =  Convert.ToInt32( Console.ReadLine() );
-        }
-        */
-        void RequestUniqueCharacteristic();
-        string GetDescription();
-    }
-
-    public class Lion : IAnimal
-    {
-        private string _maneColour;
-        public int Age { get; set; }
-        public string Species { get => "Lion"; }
-
-        public string GetDescription()
-        {
-            return Species + " " + Age + " " + _maneColour;
-        }
-
-        public void RequestUniqueCharacteristic()
-        {
-            Console.Write("What colour is its mane? ");
-            _maneColour = Console.ReadLine();
-        }
-    }
 
     class ABC
     {
 
-
-        // Java - Project -> packages
-        // .Net - Solution -> projects
-        // SolutionName
-        //               ->  BizzBuzz -> Program
-        //                              
-        //               -> theZoo    -> Program and classes
         static void Main(string[] args)
         {
-            IAnimal l = new Lion();
-            // l.SetAge();
-            Console.Write("How old is it? ");
-            l.Age = Convert.ToInt32(Console.ReadLine());
-            l.RequestUniqueCharacteristic();
-            
-            Console.WriteLine(l.GetDescription());
+            /*
+            ConsoleKeyInfo cki = Console.ReadKey();
 
-            List<IAnimal> animals = new List<IAnimal>();
-
-            animals.Add(l);
-            animals.Add(l);
-
-            foreach (var animal in animals)
+            if (cki.Key == ConsoleKey.Enter)
             {
-                Console.WriteLine(animal.GetDescription());
+                Console.WriteLine("Enter key has been pushed");
             }
+            else if (cki.Key == ConsoleKey.Escape)
+            {
+                Console.WriteLine("Esc key has been pushed");
+            }
+            */
+
+            string pn1 = "204 123-4567";
+            string pn2 = "204 123-4568";
+            string pn3 = "204 123-4577";
+            string pn4 = "204 123-4555";
+            string pn5 = "204 123-9764";
+            string pn6 = "204 123-1124";
+            // ddd ddd-dddd
+            string em1 = "mark.smithgmail.com";
+            //llll.llllll@llllll.lll
+            string url = "https://";
 
             /*
-            Customer c1 = new Customer("Mark", "Smith");
-            Location l1 = new Location("Main St.123, Winnipeg");
+             string path1 = "c:\\project\\c_sharp\\bizzBazz";
+             string path2 = @"c:\project\c_sharp\bizzBazz\n";
 
-            Console.WriteLine(c1.GetFullName());
+            Console.WriteLine("path1 = " + path1);
+            Console.WriteLine("path2 = " + path2);
             */
-            
+            // a
+            string pattern = @"\baaa\b"; // <aaa>
+            string inputStr = "aaa";
+
+            //Console.WriteLine(Regex.IsMatch(inputStr, pattern));
+
+            Regex re = new Regex(@"^d{3} d{3}-d{4}$");
+            inputStr = "123 ddd-dddd";
+            Console.WriteLine(re.IsMatch(inputStr));
+
         }
     }
 }
