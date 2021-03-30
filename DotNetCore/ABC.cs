@@ -48,10 +48,29 @@ namespace DotNetCore
 
             //Console.WriteLine(Regex.IsMatch(inputStr, pattern));
 
-            Regex re = new Regex(@"^d{3} d{3}-d{4}$");
-            inputStr = "123 ddd-dddd";
+            /*
+            Regex re = new Regex(@"^\d{3} \d{3}-\d{4}$");
+            inputStr = "204 123-4567";
             Console.WriteLine(re.IsMatch(inputStr));
+            */
+            PrintIsMatch("204 123-4567", @"[0-9]{3} \d{3}-\d{4}");
+            PrintIsMatch("BOOK", @"[a-zA-Z]{4}");
 
+            PrintIsMatch("cats", @"[a-z]{3,}");
+            PrintIsMatch("many-cats", @"[a-z\-]{3,12}");
+            PrintIsMatch("many1cats", @"[a-z0-9]{3,12}");
+
+            PrintIsMatch("Mark_Smith", @"\w{5,32}"); // [0-9a-zA-Z_]
+
+            PrintIsMatch("   ", @"\s{3,}"); // white spaces
+
+            PrintIsMatch(" ", @"[a-z]+"); // + - {1,}
+        }
+
+        public static void PrintIsMatch(string value, string pattern)
+        {
+            Regex re = new Regex($"^{pattern}$");
+            Console.WriteLine($"{value} and {pattern}: {re.IsMatch(value)}");
         }
     }
 }
