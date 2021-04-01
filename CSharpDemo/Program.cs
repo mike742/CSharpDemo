@@ -1,32 +1,78 @@
 ﻿using System;
+using System.Numerics;
+using System.Text;
 
 namespace CSharpDemo
 {
-    public class Program
+    class Program
     {
         static void Main(string[] args)
         {
-            Customer c1 = new Customer();
-            c1.PrintFullName();
+            String str = string.Empty;
 
-            Console.WriteLine(c1.GetFullName() + " " + Customer.GetClassInfo());
+            str = "Hello"; // "Hello" -> 
+            str += " ";    // "Hello " ->
+            str += "Strings"; // -> 
+
+            // Console.WriteLine("str = " + str);
+            //str = string.Empty; 
+
+            StringBuilder sb = new StringBuilder();
+
+            sb.Append("Hello");
+            sb.Append(" ");
+            sb.Append("StringBuilder");
+            sb.Append("!");
+
+            // Console.WriteLine("sb = " + sb);
 
 
-            Location l1 = new Location("Winnipeg, Main. St. 123");
+            string str2 = @"I do not like them
+In a house.
+I do not like them
+With a mouse.
+I do not like them
+Here or there.
+I do not like them
+Anywhere.
+I do not like green eggs and ham.
+I do not like them, Sam - I - am.";
+
+            //str2 = str2.Replace("not ", "");
+
+            // Console.WriteLine(str2);
+
+            StringBuilder sb2 = new StringBuilder(str2);
+            sb2.Replace("not ", "");
+
+            // Console.WriteLine(sb2);
+
+            string userInput = "9845600000000000000";
+            BigInteger bi = BigInteger.Parse(userInput);
+
+            // Console.WriteLine( bi.ToString("N0") );
+
+            string[] partsByThree =  bi.ToString("N0").Split(",");
+            Console.WriteLine("partsByThree.Length = " + partsByThree.Length);
+
+            foreach (string part in partsByThree)
+            {
+                Console.WriteLine(part.PadLeft(3, '0') ); // 001 // 014 // 123
+            }
+
+
+            PartToWords(partsByThree[0].PadLeft(3, '0'));
+        }
+
+        public static void PartToWords(string part)
+        {
+            string[] unitsMap = new[] 
+            { "", "one", "two", "three", "four", "five", 
+                "six", "seven", "eight", "nine" };
             
-            l1.LocationName = "Winnipeg, Corydon. St. 777";
-            Console.WriteLine(l1.LocationName);
-            
-            /*
-            Console.WriteLine(l1.GetLocationName());
+            int ind = Convert.ToInt32(part[2].ToString());
 
-            l1.SetLocationName("Winnipeg, Corydon. St. 777");
-
-            Console.WriteLine(l1.GetLocationName());
-            */
-
-
-            Console.WriteLine("\n\nHave a nice day!");
+            Console.WriteLine(unitsMap[ind]);
         }
     }
 }

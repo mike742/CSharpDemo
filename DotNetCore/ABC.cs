@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Numerics;
 using System.Text.RegularExpressions;
 using CustomerClassLibrary;
 
@@ -8,9 +9,10 @@ namespace DotNetCore
 
     class ABC
     {
-
+ 
         static void Main(string[] args)
         {
+
             /*
             ConsoleKeyInfo cki = Console.ReadKey();
 
@@ -64,12 +66,32 @@ namespace DotNetCore
 
             PrintIsMatch("   ", @"\s{3,}"); // white spaces
 
-            PrintIsMatch(" ", @"[a-z]+"); // + - {1,}
+            PrintIsMatch(" ", @"[a-z]+");  // + - {1,}
+            PrintIsMatch("ccat", @"c?at"); // ? - {0,1}
+            PrintIsMatch("at", @"c*at");   // * - {0,} 
+            PrintIsMatch("c*t", @"c\*t");
+            // ^\w+[\w-\.]*\@\w+((-\w+)|(\w*))\.[a-z]{2,3}$
+
+            PrintIsMatch("mykhailo.zorin@gmail.ca", 
+                @"\w+[\w-\.]*\@\w+((-\w+)|(\w*))\.[a-z]{2,3}");
+
+            PrintIsMatch("bcld", @"b[^a]ld");
+
+            PrintIsMatch("!@3$3", @".{4}");
+
+            PrintIsMatch("GogoGogo", @"(go)+");
+
+            PrintIsMatch("set", @"s(i|a)t"); // sat || sit
+
+
+            BigInteger bi = new BigInteger();
+            Console.WriteLine(bi);
+
         }
 
         public static void PrintIsMatch(string value, string pattern)
         {
-            Regex re = new Regex($"^{pattern}$");
+            Regex re = new Regex($"^{pattern}$", RegexOptions.IgnoreCase);
             Console.WriteLine($"{value} and {pattern}: {re.IsMatch(value)}");
         }
     }

@@ -15,6 +15,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CustomerClassLibrary", "Cus
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DotNetCore", "DotNetCore\DotNetCore.csproj", "{86942CBC-6345-4ACB-893D-5F35DEEF6CD5}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestProj", "TestProj\TestProj.csproj", "{998AD690-B8AD-4E23-A847-94B490DB824A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -45,6 +47,10 @@ Global
 		{86942CBC-6345-4ACB-893D-5F35DEEF6CD5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{86942CBC-6345-4ACB-893D-5F35DEEF6CD5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{86942CBC-6345-4ACB-893D-5F35DEEF6CD5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{998AD690-B8AD-4E23-A847-94B490DB824A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{998AD690-B8AD-4E23-A847-94B490DB824A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{998AD690-B8AD-4E23-A847-94B490DB824A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{998AD690-B8AD-4E23-A847-94B490DB824A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
