@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Numerics;
 
 namespace CSharpDemo
 {
@@ -6,82 +7,59 @@ namespace CSharpDemo
     {
         static void Main(string[] args)
         {
-            /*
-            Console.WriteLine("Enter your name: ");
-            string userName = Console.ReadLine();
-            string userPos = "developer";
 
-            Console.WriteLine("Hello " + userName); // concatination
-            Console.WriteLine("Hello {0} {1} {0}", userName, userPos);
-            Console.WriteLine($"Hello {userName} {userPos}");
-            */
+            string userInput = "919560000000000000000";
+            BigInteger bi = BigInteger.Parse(userInput);
 
-            int i = 77;
-            long l = i;
-            float f = l;
-            double d = 3.14;
+            string[] partsByThree = bi.ToString("N0").Split(",");
 
-            // c++ -> c++++ #
-            // c -> c++ -> c++++ #
-            // i = (int)d;
-            string str = "314";
-            // i = Int32.Parse(str);
-            i = Convert.ToInt32(d);
-
-
-            Console.WriteLine($"i = {i}");
-            Console.WriteLine($"l = {l}");
-            Console.WriteLine($"f = {f}");
-            Console.WriteLine($"d = {d}");
-
-
-            /*
-                sbyte, byte, short, ushort, int, uint, long, ulong, float, double, 
-                and decimal.
-            */
-            Console.WriteLine("\n\n");
-            Console.WriteLine("|  Type  | Bytes of Memory |   Min   |   Max   |");
-            Console.WriteLine("================================================");
-            Console.WriteLine("| sbyte  | " + sizeof(sbyte) + " | " +
-                        sbyte.MinValue + " | " + sbyte.MaxValue + " |"            
-                    );
-            Console.WriteLine("| byte  | " + sizeof(byte) + " | " +
-                        byte.MinValue + " | " + byte.MaxValue + " |"
-                     );
-            Console.WriteLine("| float  | " + sizeof(float) + " | " +
-                        float.MinValue + " | " + float.MaxValue + " |"
-                     );
-            Console.WriteLine("| double  | " + sizeof(double) + " | " +
-                        double.MinValue + " | " + double.MaxValue + " |"
-                     );
-            Console.WriteLine("| long  | " + sizeof(long) + " | " +
-                      long.MinValue + " | " + long.MaxValue + " |"
-                   );
-            Console.WriteLine("| decimal  | " + sizeof(decimal) + " | " +
-                        decimal.MinValue + " | " + decimal.MaxValue + " |"
-                     );
-
-            Console.WriteLine("\n\n");
-            int length = 100;
-
-            for (int j = 1; j <= length; j++)
+            foreach (string part in partsByThree)
             {
-                Console.Write(j);
-
-                if (j == 100)
-                {
-                    Console.WriteLine(".");
-                }
-                else
-                {
-                    Console.Write(", ");
-                }
-
-                if (j % 15 == 0) // 15 30 45 60 75 90
-                {
-                    Console.Write("\n");
-                }
+                Console.WriteLine(part.PadLeft(3, '0')); // 001 // 014 // 123
             }
+
+
+            PartToWords(partsByThree[0].PadLeft(3, '0'));
+        }
+
+        public static void PartToWords(string part)
+        {
+            string[] unitsMap = new[]
+            { "", "one", "two", "three", "four", "five",
+                "six", "seven", "eight", "nine", "ten", "eleven", 
+                "twelve", "thirteen", "fourteen", "fifteen", "sixteen", 
+                "seventeen", "eighteen", "nineteen" };
+
+            Console.WriteLine("=======================");
+            Console.WriteLine(part);
+
+            int index;
+            string result = string.Empty;
+            
+            // transform hundreds
+            if (part[0] != '0')
+            {
+                index = Convert.ToInt32(part[0].ToString());
+                result += unitsMap[index] + " hundred";
+            }
+
+            // 014
+            // transform teens
+            string tens = string.Empty;
+            if (part[1] == '1')
+            {
+                index = Convert.ToInt32(part[1].ToString() + part[2].ToString());
+                // Console.WriteLine("index = " + index);
+                //Console.WriteLine("unitsMap[index] = " + unitsMap[index]);
+                tens = unitsMap[index];
+                result += string.IsNullOrEmpty(result) ? "" : " and ";
+                result += tens;
+            }
+
+            Console.WriteLine("=======================");
+            //int ind = Convert.ToInt32(part[2].ToString());
+
+            Console.WriteLine(result);
         }
     }
 }
