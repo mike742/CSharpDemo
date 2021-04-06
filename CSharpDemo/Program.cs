@@ -8,22 +8,25 @@ namespace CSharpDemo
         static void Main(string[] args)
         {
 
-            //string userInput = "919560000000000000000";
-            string userInput = "727";
+            string userInput = "919560000000000000000";
+            // string userInput = "109";
             BigInteger bi = BigInteger.Parse(userInput);
 
             string[] partsByThree = bi.ToString("N0").Split(",");
 
-            foreach (string part in partsByThree)
-            {
-                Console.WriteLine(part.PadLeft(3, '0')); // 001 // 014 // 123
-            }
-
-
-            PartToWords(partsByThree[0].PadLeft(3, '0'));
+            string str = PartToWords(partsByThree[0].PadLeft(3, '0'));
+            Console.WriteLine(str);
         }
 
-        public static void PartToWords(string part)
+        public static string LargeNumberToWord(int value)
+        {
+            string[] largeNumberMap = new[] { "", "" };
+
+
+            return "";
+        }
+
+        public static string PartToWords(string part)
         {
             string[] unitsMap = new[]
             { "", "one", "two", "three", "four", "five",
@@ -35,9 +38,6 @@ namespace CSharpDemo
             {"", "ten", "twenty", "thirty", "forty", "fifty",
                 "sixty", "seventy", "eighty", "ninety" };
 
-            Console.WriteLine("=======================");
-            Console.WriteLine(part);
-
             int index;
             string result = string.Empty;
 
@@ -48,7 +48,6 @@ namespace CSharpDemo
                 result += unitsMap[index] + " hundred";
             }
 
-            // 011 012 013 ... 018 019 -> 020 031 040.... 080 091 || 109
             // transform teens
             string tens = string.Empty;
             if (part[1] == '1')
@@ -58,6 +57,8 @@ namespace CSharpDemo
                 
                 result += string.IsNullOrEmpty(result) ? "" : " and ";
                 result += tens;
+
+                return result;
             }
             else if (part[1] != '0')
             {
@@ -65,25 +66,29 @@ namespace CSharpDemo
                 tens = tensMap[index];
             }
 
-            Console.WriteLine(" tens = " + tens);
-
             string oneDigit = string.Empty;
 
-            // "999"
             if (part[2] != '0')
             { 
                 index = Convert.ToInt32(part[2].ToString());
                 oneDigit = unitsMap[index];
             }
 
-            Console.WriteLine(" oneDigit = " + oneDigit);
+            // 5 9 0
+            result += !string.IsNullOrEmpty(result)
+                      && !string.IsNullOrEmpty(tens) ? " and " : "";
+            result += tens;
 
-            Console.WriteLine("=======================");
-            //int ind = Convert.ToInt32(part[2].ToString());
+            // 5 0 1   5 and 1 
+            result += !string.IsNullOrEmpty(result)
+                        && string.IsNullOrEmpty(tens)
+                        && !string.IsNullOrEmpty(oneDigit) ? " and " : "";
 
-            // result!!!!
+            result += !string.IsNullOrEmpty(tens)
+                       && !string.IsNullOrEmpty(oneDigit) ? "-" : "";
+            result += oneDigit;
 
-            Console.WriteLine(result);
+            return result;
         }
     }
 }
