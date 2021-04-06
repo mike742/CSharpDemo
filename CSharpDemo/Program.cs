@@ -7,27 +7,33 @@ namespace CSharpDemo
     {
         static void Main(string[] args)
         {
-
-            string userInput = "919560000000000000000";
-            // string userInput = "109";
+            // 018,456,000,000,000,000,000
+            string userInput = "18456000000000000000"; 
             BigInteger bi = BigInteger.Parse(userInput);
-
             string[] partsByThree = bi.ToString("N0").Split(",");
 
-            string str = PartToWords(partsByThree[0].PadLeft(3, '0'));
-            Console.WriteLine(str);
+            for (int i = 0; i < partsByThree.Length; i++)
+            {
+                // l = 3 - 1 - i
+                Console.WriteLine(PartToWords(partsByThree[i]) + "  " 
+                    + LargeNumberToWord(partsByThree.Length - (i + 1)) );
+            }
         }
 
         public static string LargeNumberToWord(int value)
         {
-            string[] largeNumberMap = new[] { "", "" };
+            string[] largeMap = new[]
+                { "", "thousand", "million", "billion", "trillion",
+                "quadrillion", "quintillion", "sextillion", "septillion",
+                "octillion", "nonillion", "decillion" };
 
-
-            return "";
+            return largeMap[value];
         }
 
         public static string PartToWords(string part)
         {
+            part = part.PadLeft(3, '0');
+
             string[] unitsMap = new[]
             { "", "one", "two", "three", "four", "five",
                 "six", "seven", "eight", "nine", "ten", "eleven",
