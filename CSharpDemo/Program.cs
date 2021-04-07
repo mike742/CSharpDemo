@@ -1,5 +1,8 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.IO;
 using System.Numerics;
+using System.Text.Json;
 
 namespace CSharpDemo
 {
@@ -8,16 +11,28 @@ namespace CSharpDemo
         static void Main(string[] args)
         {
             // 018,456,000,000,000,000,000
-            string userInput = "18456000000000000000"; 
+            // 18,000,000
+            string userInput = "185050000"; 
             BigInteger bi = BigInteger.Parse(userInput);
-            string[] partsByThree = bi.ToString("N0").Split(",");
+
+            Console.WriteLine(  ToWords(bi) );
+        }
+
+        public static string ToWords(BigInteger number)
+        {
+            string[] partsByThree = number.ToString("N0").Split(",");
+            string res = string.Empty;
 
             for (int i = 0; i < partsByThree.Length; i++)
             {
-                // l = 3 - 1 - i
-                Console.WriteLine(PartToWords(partsByThree[i]) + "  " 
-                    + LargeNumberToWord(partsByThree.Length - (i + 1)) );
+                if (partsByThree[i] != "000") {
+                    res += !string.IsNullOrEmpty(res) ? " " : "";
+                    res += PartToWords(partsByThree[i]);
+                    res += " " + LargeNumberToWord(partsByThree.Length - i - 1);
+                }
             }
+
+            return res;
         }
 
         public static string LargeNumberToWord(int value)
@@ -48,7 +63,7 @@ namespace CSharpDemo
             string result = string.Empty;
 
             // transform hundreds
-            if (part[0] != '0')
+            if (part[0] != '0') // 1 2 3 4 .. 9
             {
                 index = Convert.ToInt32(part[0].ToString());
                 result += unitsMap[index] + " hundred";
@@ -61,6 +76,7 @@ namespace CSharpDemo
                 index = Convert.ToInt32(part[1].ToString() + part[2].ToString());
                 tens = unitsMap[index];
                 
+                // 015
                 result += string.IsNullOrEmpty(result) ? "" : " and ";
                 result += tens;
 
@@ -90,6 +106,7 @@ namespace CSharpDemo
                         && string.IsNullOrEmpty(tens)
                         && !string.IsNullOrEmpty(oneDigit) ? " and " : "";
 
+            // 21 45 79
             result += !string.IsNullOrEmpty(tens)
                        && !string.IsNullOrEmpty(oneDigit) ? "-" : "";
             result += oneDigit;
