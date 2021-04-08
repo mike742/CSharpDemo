@@ -1,6 +1,9 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Xml;
+// using System.Text.Json;
 
 namespace Json_Xml_demo
 {
@@ -10,7 +13,7 @@ namespace Json_Xml_demo
         public string label { set; get; }
     }
 
-    public class Menu
+    public class Menu 
     {
         public string header { set; get; }
         public List<Item> items { set; get; }
@@ -28,11 +31,15 @@ namespace Json_Xml_demo
             {
                 Console.WriteLine("\t");
 
-                if (item.id != null)
-                    Console.Write(item.id);
-                else if (item.label != null)
-                    Console.Write(item.label);
-                else {
+                if (item != null) 
+                {
+                    if (item.id != null)
+                        Console.Write(" id = " + item.id);
+                    if (item.label != null)
+                        Console.Write(" label = " + item.label);
+                }
+                else
+                {
                     Console.WriteLine("\t null");
                 }
             }
@@ -47,7 +54,17 @@ namespace Json_Xml_demo
 
             string json = File.ReadAllText("data.json");
 
-            Console.WriteLine($"json : {json}");
+            // Top obj = JsonSerializer.Deserialize<Top>(json);
+            // obj.Print();
+
+            Top obj = JsonConvert.DeserializeObject<Top>(json);
+            obj.Print();
+
+            Console.WriteLine("\n==========================================\n");
+
+            XmlDocument xmlDoc = JsonConvert.DeserializeXmlNode(json);
+            // xmlDoc.Save("data.xml");
+            xmlDoc.Save(Console.Out);
         }
     }
 }
