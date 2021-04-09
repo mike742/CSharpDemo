@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+// using Shapes;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -9,6 +10,39 @@ using System.Xml.Serialization;
 
 namespace Json_Xml_demo
 {
+    [Serializable]
+    [XmlInclude(typeof(Rectangle))]
+    [XmlInclude(typeof(Square))]
+    public class Shape
+    {
+        [XmlElement]
+        public virtual string Name { get; }
+        [XmlElement]
+        public virtual double Area { get; }
+        [XmlElement]
+        public virtual string Color { get; set; }
+    }
+    [Serializable]
+    public class Rectangle : Shape
+    {
+
+        public double Height { set; get; }
+        public double Width { set; get; }
+
+        public override string Color { get => base.Color; set => base.Color = value; }
+        public override string Name => GetType().Name;
+        public override double Area => Height * Width;
+    }
+
+    [Serializable]
+    public class Square : Shape
+    {
+        public double Size { set; get; }
+
+        public override string Color { get => base.Color; set => base.Color = value; }
+        public override double Area => Size * Size;
+        public override string Name => GetType().Name;
+    }
     public class Item
     {
         public string id { set; get; }
@@ -93,6 +127,25 @@ namespace Json_Xml_demo
 
             Top objFromXml2 = FromXml<Top>("dddd.xml");
             objFromXml2.Print();
+
+            Console.WriteLine("\n================= Shapes =========================\n");
+
+            List<Shape> list = new List<Shape>
+            { 
+                new Rectangle {  Color = "Blue", Height = 5, Width = 7 },
+                new Square { Color = "Black", Size = 10 },
+                new Rectangle {  Color = "Red", Height = 3, Width = 6 }
+            };
+
+            string xmlShapesPath = "shapes.xml";
+            ToXml(list, xmlShapesPath);
+
+            List<Shape> loadedShapesXml = FromXml<List<Shape>>(xmlShapesPath);
+
+            foreach (var item in loadedShapesXml)
+            {
+                Console.WriteLine($"{item.Name} is {item.Color} has {item.Area}");
+            }
         }
 
         public static void ToXml<T>(T obj, string path)
