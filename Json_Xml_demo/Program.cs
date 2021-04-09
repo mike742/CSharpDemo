@@ -2,7 +2,9 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Text;
 using System.Xml;
+using System.Xml.Serialization;
 // using System.Text.Json;
 
 namespace Json_Xml_demo
@@ -61,10 +63,56 @@ namespace Json_Xml_demo
             obj.Print();
 
             Console.WriteLine("\n==========================================\n");
-
+            /*
             XmlDocument xmlDoc = JsonConvert.DeserializeXmlNode(json);
             // xmlDoc.Save("data.xml");
             xmlDoc.Save(Console.Out);
+            */
+
+            // IDisposable
+            using (StringWriter sw = new StringWriter( new StringBuilder() ))
+            {
+                XmlSerializer xmlSerializer = new XmlSerializer(typeof(Top));
+                xmlSerializer.Serialize(sw, obj);
+                File.WriteAllText("data2.xml", sw.ToString());
+            }
+
+            string xmlString = File.ReadAllText("data2.xml");
+            Top objFromXml = new Top();
+            using (StringReader sr = new StringReader(xmlString))
+            {
+                XmlSerializer xmlSerializer = new XmlSerializer(typeof(Top));
+                objFromXml = (Top)xmlSerializer.Deserialize(sr); // as Top
+            }
+
+            Console.WriteLine("\n================= Obj 2 from XML =========================\n");
+            // objFromXml.Print();
+
+
+            ToXml(obj, "dddd.xml");
+
+            Top objFromXml2 = FromXml<Top>("dddd.xml");
+            objFromXml2.Print();
+        }
+
+        public static void ToXml<T>(T obj, string path)
+        {
+            using (StringWriter sw = new StringWriter(new StringBuilder()))
+            {
+                XmlSerializer xmlSerializer = new XmlSerializer(typeof(T));
+                xmlSerializer.Serialize(sw, obj);
+                File.WriteAllText(path, sw.ToString());
+            }
+        }
+
+        public static T FromXml<T>(string path)
+        {
+            string xmlString = File.ReadAllText(path);
+            using (StringReader sr = new StringReader(xmlString))
+            {
+                XmlSerializer xmlSerializer = new XmlSerializer(typeof(Top));
+                return (T)xmlSerializer.Deserialize(sr); 
+            }
         }
     }
 }
