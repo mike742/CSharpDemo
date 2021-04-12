@@ -7,7 +7,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CSharpDemo", "CSharpDemo\CS
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Json_Xml_demo", "Json_Xml_demo\Json_Xml_demo.csproj", "{5E826694-3F41-4B07-9E3B-C5D1C2B35FD2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shapes", "Shapes\Shapes.csproj", "{6996D698-7A0D-40BD-9859-F3EABF7389C1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Shapes", "Shapes\Shapes.csproj", "{6996D698-7A0D-40BD-9859-F3EABF7389C1}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -146,6 +146,29 @@ namespace Json_Xml_demo
             {
                 Console.WriteLine($"{item.Name} is {item.Color} has {item.Area}");
             }
+
+
+
+
+
+            string key = Cripto.Cripto.GenerateSecretString();
+            Console.WriteLine($"secretString = {key}");
+            
+            // string key = "n]1_xb:KTKC3^HW5A?kqRD<0>41X:?kt";
+            string creditCard = "1234-5678-9012-3456";
+
+           
+
+            string hiddenCreditCard = Cripto.Cripto.EncryptString(key, creditCard);
+
+            Console.WriteLine($"one time hidden = {Cripto.Cripto.toMD5(hiddenCreditCard)}");
+
+            Console.WriteLine($"hiddenCreditCard = {hiddenCreditCard}");
+
+            string decriptedCreditCard = Cripto.Cripto.DecryptString(key, hiddenCreditCard);
+
+            Console.WriteLine($"decriptedCreditCard = {decriptedCreditCard}");
+
         }
 
         public static void ToXml<T>(T obj, string path)
@@ -163,7 +186,7 @@ namespace Json_Xml_demo
             string xmlString = File.ReadAllText(path);
             using (StringReader sr = new StringReader(xmlString))
             {
-                XmlSerializer xmlSerializer = new XmlSerializer(typeof(Top));
+                XmlSerializer xmlSerializer = new XmlSerializer(typeof(T));
                 return (T)xmlSerializer.Deserialize(sr); 
             }
         }
