@@ -3,6 +3,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Runtime.Serialization.Formatters.Binary;
 using System.Text;
 using System.Xml;
 using System.Xml.Serialization;
@@ -180,6 +181,7 @@ namespace Json_Xml_demo
             {
                 new Customer { Name = "Bob Smith", CreditCard = "1234-5678-9012-3456", Password = "Pa$$w0rd" },
                 new Customer { Name = "Lucy Johnson", CreditCard = "5252-5678-7845-3456", Password = "123456" },
+                new Customer { Name = "Mary Doe", CreditCard = "7899-7777-1234-3456", Password = "admin123" },
             };
 
             foreach (var item in customers)
@@ -199,6 +201,28 @@ namespace Json_Xml_demo
             {
                 var ccn = Cripto.Cripto.DecryptString(key, item.CreditCard);
                 Console.WriteLine($"{item.Name} { ccn } {item.Password}");
+            }
+
+
+            Console.WriteLine("============= Binary Serialization =================");
+
+            using (Stream st = File.Open("customers.dat", FileMode.Create))
+            {
+                BinaryFormatter bf = new BinaryFormatter();
+                bf.Serialize(st, customers);
+            }
+
+            using (Stream st = File.Open("customers.dat", FileMode.Open))
+            {
+                BinaryFormatter bf = new BinaryFormatter();
+
+                List<Customer> customersFromBinaryFile = 
+                    bf.Deserialize(st) as List<Customer>;
+
+                foreach (var item in customersFromBinaryFile)
+                {
+                    Console.WriteLine($"{item.Name}  {creditCard}");
+                }
             }
         }
 
