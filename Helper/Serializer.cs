@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.Text;
+using System.Text.Json;
 using System.Xml.Serialization;
 
 namespace Helper
@@ -28,7 +29,10 @@ namespace Helper
             }
         }
 
-        // Top obj = JsonSerializer.Deserialize<Top>(json);
-
+        public static void ToJson<T>(T obj, string path)
+        {
+            String json = JsonSerializer.Serialize(obj);
+            File.WriteAllText(path, json);
+        }
     }
 }

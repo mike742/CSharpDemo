@@ -19,6 +19,7 @@ namespace Json_Xml_demo
             CreditCard = info.GetValue("CreditCard", typeof(string)).ToString();
             Password = info.GetValue("Password", typeof(string)).ToString();
         }
+        
         public void GetObjectData(SerializationInfo info, StreamingContext context)
         {
             info.AddValue("Name", Name);

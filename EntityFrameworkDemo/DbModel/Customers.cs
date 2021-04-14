@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Runtime.Serialization;
+using System.Xml.Serialization;
 
 // Code scaffolded by EF Core assumes nullable reference types (NRTs) are not used or disabled.
 // If you have enabled NRTs for your project, then un-comment the following line:
@@ -7,7 +9,8 @@ using System.Collections.Generic;
 
 namespace EntityFrameworkDemo.DbModel
 {
-    public partial class Customers
+    [Serializable()]
+    public partial class Customers : ISerializable
     {
         public Customers()
         {
@@ -31,8 +34,17 @@ namespace EntityFrameworkDemo.DbModel
         public string CountryRegion { get; set; }
         public string WebPage { get; set; }
         public string Notes { get; set; }
+        
+        
+        [XmlIgnore]
         public byte[] Attachments { get; set; }
 
+        [XmlIgnore]
         public virtual ICollection<Orders> Orders { get; set; }
+
+        public void GetObjectData(SerializationInfo info, StreamingContext context)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
