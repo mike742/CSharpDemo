@@ -206,11 +206,7 @@ namespace Json_Xml_demo
 
             Console.WriteLine("============= Binary Serialization =================");
 
-            using (Stream st = File.Open("customers.dat", FileMode.Create))
-            {
-                BinaryFormatter bf = new BinaryFormatter();
-                bf.Serialize(st, customers);
-            }
+            ToBinary(customers, "customers.dat");
 
             using (Stream st = File.Open("customers.dat", FileMode.Open))
             {
@@ -226,6 +222,14 @@ namespace Json_Xml_demo
             }
         }
 
+        public static void ToBinary<T>(T obj, string path)
+        {
+            using (Stream st = File.Open(path, FileMode.Create))
+            {
+                BinaryFormatter bf = new BinaryFormatter();
+                bf.Serialize(st, obj);
+            }
+        }
         public static void ToXml<T>(T obj, string path)
         {
             using (StringWriter sw = new StringWriter(new StringBuilder()))
