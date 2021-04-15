@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.IO;
+using System.Linq;
 
 namespace EntityFrameworkDemo
 {
@@ -9,13 +11,14 @@ namespace EntityFrameworkDemo
         static void Main(string[] args)
         {
             var context = new DbModel.northwindContext();
-            var customersList = context.Customers;
+            var customersList = context.Customers.ToList();
 
+            /*
             foreach (var item in customersList)
             {
                 Console.WriteLine($"{item.LastName} {item.FirstName} {item.JobTitle}");
             }
-
+            */
             // Helper.Serializer.ToJson(customersList, "customers.json");
             // Helper.Serializer.ToXml(customersList, "customers.xml");
             Helper.Serializer.ToBinary(customersList, "customers.dat");
@@ -33,8 +36,15 @@ namespace EntityFrameworkDemo
                 {
                     Name = "customers.xml",
                     Size = new FileInfo("customers.xml").Length
+                },
+                new SerializedFile
+                {
+                    Name = "customers.dat",
+                    Size = new FileInfo("customers.dat").Length
                 }
             };
+
+            fileList.Sort();
 
             Console.WriteLine("========================================");
             foreach (var item in fileList)
@@ -45,9 +55,14 @@ namespace EntityFrameworkDemo
     }
 
 
-    public class SerializedFile
+    public class SerializedFile : IComparable<SerializedFile>
     {
         public string Name { get; set; }
         public long Size { get; set; }
+
+        public int CompareTo([AllowNull] SerializedFile other)
+        {
+            return Size.CompareTo(other.Size);
+        }
     }
 }

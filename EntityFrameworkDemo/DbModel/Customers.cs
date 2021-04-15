@@ -10,13 +10,12 @@ using System.Xml.Serialization;
 namespace EntityFrameworkDemo.DbModel
 {
     [Serializable()]
-    public partial class Customers : ISerializable
+    public class Customers 
     {
         public Customers()
         {
             Orders = new HashSet<Orders>();
         }
-
         public int Id { get; set; }
         public string Company { get; set; }
         public string LastName { get; set; }
@@ -44,7 +43,23 @@ namespace EntityFrameworkDemo.DbModel
 
         public void GetObjectData(SerializationInfo info, StreamingContext context)
         {
-            throw new NotImplementedException();
+            info.AddValue("Id", Id);
+            info.AddValue("Company", Company);
+            info.AddValue("LastName", LastName);
+            info.AddValue("FirstName", FirstName);
+            info.AddValue("EmailAddress", EmailAddress);
+            info.AddValue("JobTitle", JobTitle); 
+            info.AddValue("BusinessPhone", BusinessPhone);
+            info.AddValue("HomePhone", HomePhone);
+            info.AddValue("MobilePhone", MobilePhone);
+            info.AddValue("FaxNumber", FaxNumber);
+            info.AddValue("Address", Address);
+            info.AddValue("City", City);
+            info.AddValue("StateProvince", StateProvince);
+            info.AddValue("ZipPostalCode", ZipPostalCode);
+            info.AddValue("CountryRegion", CountryRegion);
+            info.AddValue("WebPage", WebPage);
+            info.AddValue("Notes", Notes);
         }
     }
 }
