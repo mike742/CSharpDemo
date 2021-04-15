@@ -10,12 +10,13 @@ using System.Xml.Serialization;
 namespace EntityFrameworkDemo.DbModel
 {
     [Serializable()]
-    public class Customers 
+    public class Customers : ISerializable
     {
         public Customers()
         {
             Orders = new HashSet<Orders>();
         }
+
         public int Id { get; set; }
         public string Company { get; set; }
         public string LastName { get; set; }
@@ -48,7 +49,7 @@ namespace EntityFrameworkDemo.DbModel
             info.AddValue("LastName", LastName);
             info.AddValue("FirstName", FirstName);
             info.AddValue("EmailAddress", EmailAddress);
-            info.AddValue("JobTitle", JobTitle); 
+            info.AddValue("JobTitle", JobTitle);
             info.AddValue("BusinessPhone", BusinessPhone);
             info.AddValue("HomePhone", HomePhone);
             info.AddValue("MobilePhone", MobilePhone);
@@ -61,5 +62,6 @@ namespace EntityFrameworkDemo.DbModel
             info.AddValue("WebPage", WebPage);
             info.AddValue("Notes", Notes);
         }
+
     }
 }

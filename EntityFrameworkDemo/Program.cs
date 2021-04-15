@@ -13,15 +13,15 @@ namespace EntityFrameworkDemo
             var context = new DbModel.northwindContext();
             var customersList = context.Customers.ToList();
 
-            /*
+            
             foreach (var item in customersList)
             {
-                Console.WriteLine($"{item.LastName} {item.FirstName} {item.JobTitle}");
+                Console.WriteLine($"{item.LastName} {item.FirstName} {item.City}");
             }
-            */
+            
             // Helper.Serializer.ToJson(customersList, "customers.json");
             // Helper.Serializer.ToXml(customersList, "customers.xml");
-            Helper.Serializer.ToBinary(customersList, "customers.dat");
+            // Helper.Serializer.ToBinary(customersList, "customers.dat");
 
             // FileInfo
 
@@ -50,6 +50,36 @@ namespace EntityFrameworkDemo
             foreach (var item in fileList)
             {
                 Console.WriteLine($"{item.Name} has {item.Size} bytes");
+            }
+            Console.WriteLine("========================================");
+            
+            
+            /*
+            int[] numbers = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
+
+            // var res = from i in numbers
+            //           where i % 2 == 0
+            //           select i;
+
+            var res = numbers.Where(i => i % 2 == 0);
+
+            foreach (var item in res)
+            {
+                Console.Write(  item + " " );
+            }
+            */
+            string city = "New York";
+            var cusCityList = customersList.Where(c => c.City.Equals(city)); // city == "NY"
+
+            var cities = customersList.Select(c => c.City);
+            Console.WriteLine("========================================");
+            
+            cities.ToList().ForEach( c => Console.WriteLine(c) );
+
+            Console.WriteLine("========================================");
+            foreach (var item in cusCityList)
+            {
+                Console.WriteLine($"{item.LastName} {item.FirstName} - {item.City}");
             }
         }
     }
