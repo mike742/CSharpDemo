@@ -71,16 +71,33 @@ namespace EntityFrameworkDemo
             string city = "New York";
             var cusCityList = customersList.Where(c => c.City.Equals(city)); // city == "NY"
 
-            var cities = customersList.Select(c => c.City);
-            Console.WriteLine("========================================");
+            var cities = customersList.Select(c => c.City).Distinct().ToList();
+            // List<string> citiesList = cities.ToList();
+            cities.Sort();
+            cities.Reverse();
             
-            cities.ToList().ForEach( c => Console.WriteLine(c) );
-
-            Console.WriteLine("========================================");
-            foreach (var item in cusCityList)
+            foreach (var item in cities)
             {
-                Console.WriteLine($"{item.LastName} {item.FirstName} - {item.City}");
+                Console.WriteLine(item);
             }
+
+            //List<string> testList = new List<string> { "b", "e", "c", "d", "a" };
+            //testList.Sort();
+
+            // testList.ForEach( s => Console.WriteLine(s) );
+
+            // cities
+            string joined = string.Join(", ", cities.ToArray());
+            Console.WriteLine("joined = " + joined);
+
+
+            // cities.ToList().ForEach( c => Console.WriteLine(c) );
+
+            // Console.WriteLine("========================================");
+            // foreach (var item in cusCityList)
+            // {
+            //     Console.WriteLine($"{item.LastName} {item.FirstName} - {item.City}");
+            // }
         }
     }
 
